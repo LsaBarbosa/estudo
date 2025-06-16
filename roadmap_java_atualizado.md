@@ -1,21 +1,23 @@
 # Roadmap Completo de Java
-1. [Reflection e Manipulação Dinâmica](#9-reflection-e-manipulação-dinâmica)
-2. [APIs e Ferramentas do Java](#10-apis-e-ferramentas-do-java)
-3. [Testes Automatizados](#11-testes-automatizados)
-4. [Desenvolvimento Web com Java](#12-desenvolvimento-web-com-java)
-5. [Integração com Banco de Dados](#13-integração-com-banco-de-dados)
-6. [Boas Práticas e Arquitetura](#14-boas-práticas-e-arquitetura)
-7. [Ferramentas e DevOps](#15-ferramentas-e-devops)
-8. [Java Avançado e Temas Modernos](#16-java-avançado-e-temas-modernos)
-9. [Segurança em Java](#17-segurança-em-java)
-10. [Atualizações Java (17 a 21)](#18-atualizações-java-17-a-21)
-11. [Referências](#19-referências)
-12. Boas Práticas e Arquitetura](#12-boas-práticas-e-arquitetura)
-13. Ferramentas e DevOps](#13-ferramentas-e-devops)
-14. Java Avançado e Temas Modernos](#14-java-avançado-e-temas-modernos)
-15. Segurança em Java](#15-segurança-em-java)
-16. Atualizações Java (17 a 21)](#16-atualizações-java-17-a-21)
-17. Referências](#17-referências)
+- [1. Introdução](#1-introdução)
+- [2. Fundamentos da Linguagem Java](#2-fundamentos-da-linguagem-java)
+- [3. Estruturas de Dados e Coleções](#3-estruturas-de-dados-e-coleções)
+- [4. Tratamento de Exceções](#4-tratamento-de-exceções)
+- [5. Fundamentos do Java Moderno](#5-fundamentos-do-java-moderno)
+- [6. Manipulação de Arquivos e I/O](#6-manipulação-de-arquivos-e-io)
+- [7. Programação Concorrente e Paralela](#7-programação-concorrente-e-paralela)
+- [8. APIs e Ferramentas do Java](#8-apis-e-ferramentas-do-java)
+- [9. Reflection e Manipulação Dinâmica](#9-reflection-e-manipulação-dinâmica)
+- [10. APIs e Ferramentas do Java](#10-apis-e-ferramentas-do-java)
+- [11. Testes Automatizados](#11-testes-automatizados)
+- [12. Desenvolvimento Web com Java](#12-desenvolvimento-web-com-java)
+- [13. Integração com Banco de Dados](#13-integração-com-banco-de-dados)
+- [14. Boas Práticas e Arquitetura](#14-boas-práticas-e-arquitetura)
+- [15. Ferramentas e DevOps](#15-ferramentas-e-devops)
+- [16. Java Avançado e Temas Modernos](#16-java-avançado-e-temas-modernos)
+- [17. Segurança em Java](#17-segurança-em-java)
+- [18. Atualizações Java (17 a 21)](#18-atualizações-java-17-a-21)
+- [19. Referências](#19-referências)
 
 ---
 
@@ -970,3 +972,15 @@ Thread.startVirtualThread(() -> System.out.println("Thread virtual"));
 ### 18.5.6. Depreciação e remoção de APIs antigas
 
 ---
+
+# 19. Referências
+
+- [Documentação Oficial Java](https://docs.oracle.com/en/java/)
+- [Java Tutorials](https://docs.oracle.com/javase/tutorial/)
+- Effective Java (Joshua Bloch)
+- Clean Code (Robert C. Martin)
+- Java Concurrency in Practice (Brian Goetz)
+- Spring in Action (Craig Walls)
+- [Spring Guides](https://spring.io/guides)
+- [Baeldung - Java & Spring](https://www.baeldung.com/)
+

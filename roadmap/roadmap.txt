@@ -1,0 +1,22 @@
+- Java - (Segunda)                                        	 - AWS - (Terça)
+
+	° Thread Concurrency 220-245						° RDS
+	° pattern (builder/factory/singleton) 246-251 				° DynamoDB
+										° Lambda
+
+
+
+- Dev-Ops - (Quarta)						- Arquitetura - (Quinta)
+
+	° Kubernets (PODs)							° Hexagonal	
+	° Terraform (CI/CD e Pipeline)						° Clean Arch
+
+
+
+- Micro Serviço - (Sexta) 					- Kronos - (Sábado)
+	° Kafka           					- Ingles - (Domingo)
+	° Rabbit
+
+- Leitura e detalhamento dos tópicos (Gerar pelo gpt)
+- Exercícios (gerar pelo gpt)
+- Videos

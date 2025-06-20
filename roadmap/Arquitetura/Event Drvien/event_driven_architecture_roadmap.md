@@ -141,13 +141,76 @@
 
 ### 2.1. Event Notification
 - Apenas notificação, sem payload relevante.
+- Características principais:
+  - O payload é pequeno, geralmente só contém o tipo do evento e um identificador
+  - O consumidor precisa buscar os detalhes adicionais diretamente no produtor (consulta síncrona via API, por exemplo).
+
+- Exemplo
+    Evento: UserCreated
+    - ```json
+{
+  "userId": 123
+}
+    ```
+    O consumidor, ao receber o evento, faz uma chamada GET para buscar os detalhes do usuário.
+
+- Vantagens:
+  Eventos leves.
+  Simples de produzir.
+
+- Desvantagens:
+  - Consumidores ficam dependentes de consultas síncronas.
+  - Pode gerar problemas de performance em casos de muitos consumidores.
 
 ### 2.2. Event-Carried State Transfer
 - Evento carrega o estado completo da entidade.
+- Características principais:
+  - O payload inclui todos os dados relevantes da entidade ou da mudança.
+  - Reduz a necessidade de chamadas síncronas posteriores.
+- ```json
+{
+  "userId": 123,
+  "name": "Lucas",
+  "email": "lucas@example.com",
+  "createdAt": "2025-06-20T10:00:00Z"
+}
+    ```
+- Vantagens:
+  - Evita acoplamento por chamadas síncronas.
+  - Melhor performance para sistemas com múltiplos consumidores.
 
+- Desvantagens:
+  - Payloads maiores.
+  - Risco de divergência de dados caso os eventos não sejam bem versionados.
+    
 ### 2.3. Event Sourcing
-- Estado da aplicação reconstruído a partir de eventos.
+- Estado da aplicação reconstruído a partir de eventos, estado da aplicação não é armazenado diretament em bancos tradicionais.
 
+- Como funciona:
+  - Cada mudança de estado gera um evento.
+  - Exemplo prático:
+    - Para uma conta bancária:
+      - AccountCreated { balance: 0 }
+      - MoneyDeposited { amount: 500 }
+      - MoneyWithdrawn { amount: 200 }
+      - O estado atual é obtido aplicando todos os eventos, na ordem em que aconteceram.
+
+-  Vantagem
+  - Histórico completo de todas as mudanças (Auditoria perfeita)
+  - possibilidade de reconstruir o estado de qualquer ponto no tempo
+  - Suporte nativo a cenários de replays ou rollback de estado
+   
+-  Desvantagem
+  - Complexidade maior
+  - Requer infraestrutra para armazenar e versionar eventos de forma consistente
+  - Pode ser custoso reconstruir estados muito longos (exige snapshots periódicos)
+```text
+| **Padrão**             | **Descrição**                         | **Exemplo**                                       |
+| ---------------------- | ------------------------------------- | ------------------------------------------------- |
+| Notification           | Só notifica que algo aconteceu        | `UserCreated { userId }`                          |
+| Carried State Transfer | carrega o estado completo             | `UserCreated { id, name, email }`                 |
+| Sourcing               | reconstruído via sequência de eventos | `AccountCreated`,`MoneyDeposited`,`MoneyWithdrawn`|
+```
 ### 2.4. Exercícios Práticos - Padrões
 - Criar um evento simples com Event Notification.
 - Criar um exemplo com Event-Carried State Transfer.

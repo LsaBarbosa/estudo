@@ -147,11 +147,11 @@
 
 - Exemplo
     Evento: UserCreated
-    - ```json
+ 
     {
           "userId": 123
     }
-      ```
+      
     O consumidor, ao receber o evento, faz uma chamada GET para buscar os detalhes do usuário.
 
 - Vantagens:
@@ -167,14 +167,14 @@
 - Características principais:
   - O payload inclui todos os dados relevantes da entidade ou da mudança.
   - Reduz a necessidade de chamadas síncronas posteriores.
-- ```json
+```json
 {
   "userId": 123,
   "name": "Lucas",
   "email": "lucas@example.com",
   "createdAt": "2025-06-20T10:00:00Z"
 }
-    ```
+```
 - Vantagens:
   - Evita acoplamento por chamadas síncronas.
   - Melhor performance para sistemas com múltiplos consumidores.

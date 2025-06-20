@@ -65,14 +65,81 @@
 ``` 
 ### 1.3. Benefícios da EDA
 - Escalabilidade
-- Resiliência
-- Baixo acoplamento
+  - Capacidade de aumentar/diminuir recursos de forma dinâmica para entender a variação na carga de trabalho
+  - Como EDA Fornerce isso:
+    - Processamento assíncrono
+      - Eventos ficam no broker até serem processados, evitando sobrecarga imediata nos consumidores.
+    - Escalabilidade Independente
+      - Produtores e Consumidores podem escalar de forma separada
+    - Parallel Processing
+      - Multiplos cosnumidores podem processar diferentes partições de eventos em paralelo (kafka multiplas partições)  
 
+- Resiliência
+  - Capacidade de continuar operando mesmo diante de falhas
+  - Como EDA Fornerce isso:
+    - Retry e DLQ
+      - consumidores podem tentar novamente o processamento em caso de falaha, ou encaminhar para dead letter queue
+    - Persistencia de eventos
+      - Brokers como kafka  armazenam eventos de forma dutável até o proessamento
+    - Desacoplamento Temporal: Produtores não precisam saber se o consumer está disponível ou não no ato da publicação      
+
+- Baixo acoplamento
+  - Produtores e consumidores são independentes entre si, sem dependencias diretas de implementação 
+  - Como EDA Fornerce isso:
+    - Produtores conhecem somente o evento e nao o consumidor
+      - Isso permite que a adição ou remoção de consumers sem afetar o produtor 
+    - Flexibilidade de evolução
+      - Mudanças lógicas de um cosnumidor ou surgimento de um novo requisito não exigem alterações nos producers
+    - Suporte a multiplos consumers
+      - Um único evento pode ser consumido por diferentes serviços com propósito distintos
+```text
+| **Benefício**     | **Como a EDA entrega**                                        |
+| ----------------- | ------------------------------------------------------------- |
+| Escalabilidade    | Processamento paralelo, escalonamento independente            |
+| Resiliência       | Retentativas, persistência de mensagens, isolamento de falhas |
+| Baixo Acoplamento | Independência entre produtores e consumidores                 |
+
+```
 ### 1.4. Desafios comuns
 - Garantia de entrega
+  - AT MOST ONCE (no máximo uma vez): evento pode ser perdido, mas não será processado mais de uma vez.
+  - AT LEAST ONCE (pelo menos uma vez): evento pode ser entregue mais de uma vez, mas nunca será perdido
+  - EXACTLY ONCE (exatamente uma vez): cada evento será entregue e processado apenas uma vez, sem perdas nem duplicação
+ 
 - Ordering
-- Duplicate Event Handling
+  - Garantir que os eventos sejam processados na mesma ordem em que foram gerados.
+  - Por que é um problema:
+    - Em arquiteturas distribuídas e escaláveis, diferentes instâncias de consumidores podem processar eventos fora de ordem.
 
+  - Exemplo de problema:
+    - Se os eventos OrderCreated e OrderCancelled forem processados fora de ordem, pode-se faturar um pedido que já foi cancelado.
+    - Soluções comuns:
+      - Particionamento com chave (Kafka): Garantir ordem dentro de uma partição específica.
+      - Uso de sequence numbers: Consumidores podem validar se um evento chegou fora de ordem.
+      - Processamento com Ordering Queues: Implementar filas por entidade-chave (ex: por ID de pedido).
+
+  - Limitação:
+    - Garantir ordem global (em todos os eventos) pode limitar a escalabilidade.
+      
+- Duplicate Event Handling
+  - Consequências:
+    - Processamento duplo
+    - Geração de dados incosnsistentes
+
+  - Soluções
+    - Idempotência: Garantir que o processamento de um mesmo evento produza sempre o mesmo resultado
+    - Duplication Store: Usar um armazenamento(redis) para rastrear ids de eventos já processados
+    - Events IDs + Cache: Marcar cada evento com um UUID único e validar antes de processar
+  - Exemplo prático:
+    - Antes de salvar um pagamento, o consumidor verifica se já existe um registro com o eventId informado.
+  ```text
+  | **Desafio**         | **Problema**                                       | **Soluções Comuns**                                |
+| ------------------- | -------------------------------------------------- | -------------------------------------------------- |
+| Garantia de Entrega | Eventos podem se perder ou duplicar                | Acknowledgments, retries, DLQ, persistência        |
+| Ordering            | Eventos podem ser processados fora de ordem        | Particionamento, sequence numbers, filas por chave |
+| Duplicate Handling  | O mesmo evento pode ser processado mais de uma vez | Idempotência, deduplicação por ID                  |
+
+    ```
 ### 1.5. Exercícios Práticos - Fundamentos
 - Criar um diagrama de fluxo de eventos simples.
 - Listar 3 cenários reais que se beneficiam de EDA.

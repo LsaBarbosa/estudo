@@ -132,14 +132,7 @@
     - Events IDs + Cache: Marcar cada evento com um UUID único e validar antes de processar
   - Exemplo prático:
     - Antes de salvar um pagamento, o consumidor verifica se já existe um registro com o eventId informado.
-  ```text
-  | **Desafio**         | **Problema**                                       | **Soluções Comuns**                                |
-| ------------------- | -------------------------------------------------- | -------------------------------------------------- |
-| Garantia de Entrega | Eventos podem se perder ou duplicar                | Acknowledgments, retries, DLQ, persistência        |
-| Ordering            | Eventos podem ser processados fora de ordem        | Particionamento, sequence numbers, filas por chave |
-| Duplicate Handling  | O mesmo evento pode ser processado mais de uma vez | Idempotência, deduplicação por ID                  |
 
-    ```
 ### 1.5. Exercícios Práticos - Fundamentos
 - Criar um diagrama de fluxo de eventos simples.
 - Listar 3 cenários reais que se beneficiam de EDA.

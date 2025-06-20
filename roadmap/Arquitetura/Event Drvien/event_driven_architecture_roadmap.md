@@ -148,10 +148,10 @@
 - Exemplo
     Evento: UserCreated
     - ```json
-{
-  "userId": 123
-}
-    ```
+    {
+          "userId": 123
+    }
+      ```
     O consumidor, ao receber o evento, faz uma chamada GET para buscar os detalhes do usuário.
 
 - Vantagens:

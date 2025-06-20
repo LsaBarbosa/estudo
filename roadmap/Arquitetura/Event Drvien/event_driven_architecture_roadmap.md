@@ -18,9 +18,51 @@
 
 ### 1.2. Componentes Principais
 - **Event Producers**
-- **Event Consumers**
-- **Event Channels (Brokers)**
+  - Componentes responsáveis por gerar e publicar eventos para o sistema
 
+  - Responsabilidade Princípal
+    - Detectar mudanças de estado
+    - Cria eventos + metadados como: timeStamp, Id de correlação,etc
+
+  - Boas práticas
+    - Garantir que o evento se versionado e bem definido
+    - Não incluir lógica
+    - Ser IDEMPOTENTE (Garante que ao consumir a mesma msg mais de uma vez, produza paenas um unico resultado)
+      
+- **Event Consumers**
+  -  Componentes que recebem os eventos produzidos.
+
+  -  Responsabilidades Principais
+    - Executa eventos de interesse nos canais apropriados.
+    - Processa o evento de froma assíncrona.
+    - Tratar falhas e implementar estratégias de:  retry, dead-letter queues,etc
+
+  -  Boas práticas  
+    - Utilizar mecanismo de Dead letter queue para tratar eventos que falham repetidamente.
+    - Manter o consumidor desacoplado da origem do evento  
+    - Garantir processamento de idempotencia
+      
+- **Event Channels (Brokers)**
+  - Intermediario responsável por transportar o evento do produtor ao consumidor
+    - São como um buffer assíncrono e garantem a entrega confiável dos eventos.
+
+  - Exemplo:
+    - Kafka, RabitMq, AWS SNS/SQS, Google Pub/Sub
+          
+  - Responsabilidade Principais
+    - Receber evento dos produtores
+    - Roteá-los para consumidores apropriados.
+    - Garantir caracteristicas: durabilidade, persistencia, ordenação, resiliência.
+
+  - Modos de entrega: Pub/Sub e Queue(fila)
+```text
+| **Componente**         | **Responsável por**                                | **Exemplos de Tecnologias**    |
+| ---------------------- | -------------------------------------------------- | ------------------------------ |
+| Event Producer         | Emitir o evento                                    | Microservices, Backend APIs    |
+| Event Consumer         | Processar o evento                                 | Workers, Lambda, Microservices |
+| Event Channel (Broker) | Transporte, armazenamento e roteamento dos eventos | Kafka, RabbitMQ, SQS/SNS       |
+
+``` 
 ### 1.3. Benefícios da EDA
 - Escalabilidade
 - Resiliência
